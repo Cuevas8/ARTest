@@ -77,7 +77,6 @@ class GameViewController: UIViewController {
     super.viewWillAppear(animated)
     let configuration = ARWorldTrackingConfiguration()
     sceneView.session.run(configuration)
-    
   }
   
   override func viewWillDisappear(_ animated: Bool) {

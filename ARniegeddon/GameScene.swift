@@ -41,7 +41,6 @@ var hasBugspray = false {
   }
 }
 
-
 class GameScene: SKScene {
   
   var sceneView: ARSKView {
@@ -114,6 +113,7 @@ class GameScene: SKScene {
       guard let node = sceneView.node(for: anchor),
         node.name == NodeType.bugspray.rawValue
         else { continue }
+      print("Found bugspray ")
       // 3
       let distance = simd_distance(anchor.transform.columns.3,
         currentFrame.camera.transform.columns.3)
@@ -123,15 +123,12 @@ class GameScene: SKScene {
         break
       }
     }
-
-  
   }
   
   override func didMove(to view: SKView) {
     sight = SKSpriteNode(imageNamed: "sight")
     addChild(sight)
     srand48(Int(Date.timeIntervalSinceReferenceDate))
-
   }
   
   override func touchesBegan(_ touches: Set<UITouch>,
@@ -148,8 +145,6 @@ class GameScene: SKScene {
       }
     }
     
-    
-    
     run(Sounds.fire)
     if let hitBug = hitBug,
       let anchor = sceneView.anchor(for: hitBug) {
@@ -161,7 +156,6 @@ class GameScene: SKScene {
       hitBug.run(SKAction.sequence(sequence))
     }
     hasBugspray = false
-
   }
   
   private func addBugSpray(to currentFrame: ARFrame) {
@@ -179,11 +173,5 @@ class GameScene: SKScene {
     run(Sounds.bugspray)
     sceneView.session.remove(anchor: anchor)
     hasBugspray = true
-
   }
-
-  
-
-  
-  
 }
