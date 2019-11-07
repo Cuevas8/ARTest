@@ -41,6 +41,14 @@ enum Sounds {
                                                      waitForCompletion: false)
   static let lose =      SKAction.playSoundFileNamed("lose.wav",
                                                      waitForCompletion: false)
+  
+  
 }
 
+
+enum NodeType: String {
+  case bug = "bug"
+  case firebug = "firebug"
+  case bugspray = "bugspray"
+}
 
