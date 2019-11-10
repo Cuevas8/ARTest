@@ -93,7 +93,6 @@ class GameScene: SKScene {
       let lightEstimate = currentFrame.lightEstimate else {
         return
     }
-        
     // 2
     let neutralIntensity: CGFloat = 1000
     let ambientIntensity = min(lightEstimate.ambientIntensity,
@@ -141,7 +140,6 @@ class GameScene: SKScene {
     var hitBug: SKNode?
     for node in hitNodes {
       print("Node Value: \(node.name)")
-
       
       if node.name == NodeType.bug.rawValue ||
       (node.name == NodeType.firebug.rawValue && hasBugspray) {
