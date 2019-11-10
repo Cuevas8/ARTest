@@ -75,6 +75,7 @@ class GameScene: SKScene {
           if anchor.type == .firebug {
             addBugSpray(to: currentFrame)
           }
+          
         }
       }
     }
@@ -107,22 +108,22 @@ class GameScene: SKScene {
       }
     }
     
-    // 1
-    for anchor in currentFrame.anchors {
-      // 2
-      guard let node = sceneView.node(for: anchor),
-        node.name == NodeType.bugspray.rawValue
-        else { continue }
-      print("Found bugspray ")
-      // 3
-      let distance = simd_distance(anchor.transform.columns.3,
-        currentFrame.camera.transform.columns.3)
-      // 4
-      if distance < 0.1 {
-        remove(bugspray: anchor)
-        break
-      }
-    }
+//    // 1
+//    for anchor in currentFrame.anchors {
+//      // 2
+//      guard let node = sceneView.node(for: anchor),
+//        node.name == NodeType.bugspray.rawValue
+//        else { continue }
+//      print("Found bugspray ")
+//      // 3
+//      let distance = simd_distance(anchor.transform.columns.3,
+//        currentFrame.camera.transform.columns.3)
+//      // 4
+//      if distance < 0.1 {
+//        remove(bugspray: anchor)
+//        break
+//      }
+//    }
   }
   
   override func didMove(to view: SKView) {
@@ -136,13 +137,22 @@ class GameScene: SKScene {
     let location = sight.position
     let hitNodes = nodes(at: location)
     
+    print("hasBugSpray: \(hasBugspray)")
     var hitBug: SKNode?
     for node in hitNodes {
+      print("Node Value: \(node.name)")
+
+      
       if node.name == NodeType.bug.rawValue ||
       (node.name == NodeType.firebug.rawValue && hasBugspray) {
         hitBug = node
         break
       }
+      else if node.name == NodeType.bugspray.rawValue {
+        hasBugspray = true
+      }
+      print("hasBugSpray: \(hasBugspray)")
+
     }
     
     run(Sounds.fire)
@@ -155,10 +165,11 @@ class GameScene: SKScene {
       let sequence = [SKAction.wait(forDuration: 0.3), group]
       hitBug.run(SKAction.sequence(sequence))
     }
-    hasBugspray = false
+    //hasBugspray = false
   }
   
   private func addBugSpray(to currentFrame: ARFrame) {
+    print("addBugSpray")
     var translation = matrix_identity_float4x4
     translation.columns.3.x = Float(drand48()*2 - 1)
     translation.columns.3.z = -Float(drand48()*2 - 1)
@@ -170,6 +181,7 @@ class GameScene: SKScene {
   }
   
   private func remove(bugspray anchor: ARAnchor) {
+    print("Remove bugspray")
     run(Sounds.bugspray)
     sceneView.session.remove(anchor: anchor)
     hasBugspray = true

@@ -72,7 +72,6 @@ class GameViewController: UIViewController {
     return true
   }
   
-  //ARWorldTrackingConfiguration tracks orientation and position of the device.
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     let configuration = ARWorldTrackingConfiguration()
