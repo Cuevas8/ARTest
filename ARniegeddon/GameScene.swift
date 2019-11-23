@@ -33,6 +33,7 @@ import ARKit
 var isWorldSetUp = false
 var sight: SKSpriteNode!
 let gameSize = CGSize(width: 2, height: 2)
+var count = 0
 
 var hasBugspray = false {
   didSet {
@@ -47,7 +48,10 @@ class GameScene: SKScene {
     return view as! ARSKView
   }
   
+  
   private func setUpWorld() {
+    
+    
     guard let currentFrame = sceneView.session.currentFrame,
       // 1
       let scene = SKScene(fileNamed: "Level1")
@@ -75,13 +79,11 @@ class GameScene: SKScene {
           if anchor.type == .firebug {
             addBugSpray(to: currentFrame)
           }
-          
         }
       }
     }
     isWorldSetUp = true
   }
-  
   
   override func update(_ currentTime: TimeInterval) {
     if !isWorldSetUp {
@@ -106,23 +108,6 @@ class GameScene: SKScene {
         bug.colorBlendFactor = blendFactor
       }
     }
-    
-//    // 1
-//    for anchor in currentFrame.anchors {
-//      // 2
-//      guard let node = sceneView.node(for: anchor),
-//        node.name == NodeType.bugspray.rawValue
-//        else { continue }
-//      print("Found bugspray ")
-//      // 3
-//      let distance = simd_distance(anchor.transform.columns.3,
-//        currentFrame.camera.transform.columns.3)
-//      // 4
-//      if distance < 0.1 {
-//        remove(bugspray: anchor)
-//        break
-//      }
-//    }
   }
   
   override func didMove(to view: SKView) {
@@ -135,7 +120,7 @@ class GameScene: SKScene {
                              with event: UIEvent?) {
     let location = sight.position
     let hitNodes = nodes(at: location)
-    
+    print(hitNodes)
     print("hasBugSpray: \(hasBugspray)")
     var hitBug: SKNode?
     for node in hitNodes {
@@ -149,6 +134,12 @@ class GameScene: SKScene {
       else if node.name == NodeType.bugspray.rawValue {
         hasBugspray = true
       }
+      else if (node as? SKLabelNode) != nil {
+        print("sklabelnode")
+        node.removeFromParent()
+            self.setUpWorld()
+
+      }
       print("hasBugSpray: \(hasBugspray)")
     }
     
@@ -156,21 +147,34 @@ class GameScene: SKScene {
     if let hitBug = hitBug,
       let anchor = sceneView.anchor(for: hitBug) {
       let action = SKAction.run {
+        count += 1
+        print("Count is: \(count)")
+        
         self.sceneView.session.remove(anchor: anchor)
+        if count == 10 {
+          let winner = SKLabelNode(fontNamed: "Chalkduster")
+          winner.text = "You Win!"
+          winner.fontSize = 65
+          winner.fontColor = SKColor.green
+          winner.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+             
+          self.addChild(winner)
+        }
       }
       let group = SKAction.group([Sounds.hit, action])
       let sequence = [SKAction.wait(forDuration: 0.3), group]
       hitBug.run(SKAction.sequence(sequence))
     }
+ 
     //hasBugspray = false
   }
   
   private func addBugSpray(to currentFrame: ARFrame) {
     print("addBugSpray")
     var translation = matrix_identity_float4x4
-    translation.columns.3.x = Float(drand48()*2 - 1)
-    translation.columns.3.z = -Float(drand48()*2 - 1)
-    translation.columns.3.y = Float(drand48() - 0.5)
+    translation.columns.3.x = 2
+    translation.columns.3.z = 1
+    translation.columns.3.y = 2
     let transform = currentFrame.camera.transform * translation
     let anchor = Anchor(transform: transform)
     anchor.type = .bugspray
