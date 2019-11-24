@@ -56,6 +56,13 @@ class GameScene: SKScene {
       // 1
       let scene = SKScene(fileNamed: "Level1")
       else { return }
+    
+    var bugCountDown = SKLabelNode(text: "10")
+    bugCountDown.fontSize = 40
+    bugCountDown.fontName = "Verdana-Bold"
+    bugCountDown.position = CGPoint(x: -150, y: 380)
+    bugCountDown.name = "bugCountDown"
+    addChild(bugCountDown)
       
     for node in scene.children {
       if let node = node as? SKSpriteNode {
@@ -137,7 +144,8 @@ class GameScene: SKScene {
       else if (node as? SKLabelNode) != nil {
         print("sklabelnode")
         node.removeFromParent()
-            self.setUpWorld()
+
+          self.setUpWorld()
 
       }
       print("hasBugSpray: \(hasBugspray)")
@@ -151,13 +159,27 @@ class GameScene: SKScene {
         print("Count is: \(count)")
         
         self.sceneView.session.remove(anchor: anchor)
+        
+        var countDown: SKLabelNode? = self.sceneView.scene?.childNode(withName: "bugCountDown") as? SKLabelNode
+        if let countDown = countDown, let countString = countDown.text {
+          print("lelvell")
+          if let count = Int(countString) {
+            print("dsfsdfs")
+            countDown.text = String(count - 1)
+          }
+        }
+        
         if count == 10 {
-          let winner = SKLabelNode(fontNamed: "Chalkduster")
+          let winner = SKLabelNode(fontNamed: "Menlo")
           winner.text = "You Win!"
           winner.fontSize = 65
-          winner.fontColor = SKColor.green
+          winner.fontColor = SKColor.red
           winner.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-             
+          count = 0
+          self.sceneView.scene?.childNode(withName: "bugspray")?.removeFromParent()
+          self.sceneView.scene?.childNode(withName: "bugCountDown")?.removeFromParent()
+
+          sight.texture = SKTexture(imageNamed: "sight")
           self.addChild(winner)
         }
       }
@@ -165,8 +187,6 @@ class GameScene: SKScene {
       let sequence = [SKAction.wait(forDuration: 0.3), group]
       hitBug.run(SKAction.sequence(sequence))
     }
- 
-    //hasBugspray = false
   }
   
   private func addBugSpray(to currentFrame: ARFrame) {
