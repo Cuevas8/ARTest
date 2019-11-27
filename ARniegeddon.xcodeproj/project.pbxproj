@@ -23,6 +23,9 @@
 		8297D5121F3487F700C42D1F /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8297D5111F3487F700C42D1F /* Types.swift */; };
 		935F66DE2373D3730030F425 /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 935F66DD2373D3730030F425 /* Level1.sks */; };
 		935F66E02373E8360030F425 /* Anchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935F66DF2373E8360030F425 /* Anchor.swift */; };
+		93F96722238F3099001B7BD5 /* 3DSceneVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F96721238F3099001B7BD5 /* 3DSceneVC.swift */; };
+		93F96726238F3275001B7BD5 /* ship.png in Resources */ = {isa = PBXBuildFile; fileRef = 93F96724238F3274001B7BD5 /* ship.png */; };
+		93F96727238F3275001B7BD5 /* ship.scn in Resources */ = {isa = PBXBuildFile; fileRef = 93F96725238F3275001B7BD5 /* ship.scn */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +47,9 @@
 		8297D5111F3487F700C42D1F /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		935F66DD2373D3730030F425 /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
 		935F66DF2373E8360030F425 /* Anchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anchor.swift; sourceTree = "<group>"; };
+		93F96721238F3099001B7BD5 /* 3DSceneVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 3DSceneVC.swift; sourceTree = "<group>"; };
+		93F96724238F3274001B7BD5 /* ship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ship.png; sourceTree = "<group>"; };
+		93F96725238F3275001B7BD5 /* ship.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = ship.scn; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +84,7 @@
 		8288976B1F33F3910035005F /* ARniegeddon */ = {
 			isa = PBXGroup;
 			children = (
+				93F96723238F3232001B7BD5 /* 3D Models */,
 				8288976C1F33F3920035005F /* AppDelegate.swift */,
 				828897741F33F3930035005F /* GameViewController.swift */,
 				828897721F33F3920035005F /* GameScene.swift */,
@@ -89,6 +96,7 @@
 				8288977E1F33F3940035005F /* Info.plist */,
 				935F66DD2373D3730030F425 /* Level1.sks */,
 				935F66DF2373E8360030F425 /* Anchor.swift */,
+				93F96721238F3099001B7BD5 /* 3DSceneVC.swift */,
 			);
 			path = ARniegeddon;
 			sourceTree = "<group>";
@@ -105,6 +113,15 @@
 				8297D5051F34836C00C42D1F /* win.wav */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		93F96723238F3232001B7BD5 /* 3D Models */ = {
+			isa = PBXGroup;
+			children = (
+				93F96724238F3274001B7BD5 /* ship.png */,
+				93F96725238F3275001B7BD5 /* ship.scn */,
+			);
+			path = "3D Models";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,8 +191,10 @@
 				8297D50A1F34836D00C42D1F /* sprayBug.mp3 in Resources */,
 				8288977D1F33F3940035005F /* LaunchScreen.storyboard in Resources */,
 				8297D50C1F34836D00C42D1F /* win.wav in Resources */,
+				93F96727238F3275001B7BD5 /* ship.scn in Resources */,
 				935F66DE2373D3730030F425 /* Level1.sks in Resources */,
 				8297D50B1F34836D00C42D1F /* sprayFirebug.wav in Resources */,
+				93F96726238F3275001B7BD5 /* ship.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +209,7 @@
 				935F66E02373E8360030F425 /* Anchor.swift in Sources */,
 				828897751F33F3930035005F /* GameViewController.swift in Sources */,
 				8288976D1F33F3920035005F /* AppDelegate.swift in Sources */,
+				93F96722238F3099001B7BD5 /* 3DSceneVC.swift in Sources */,
 				8297D5121F3487F700C42D1F /* Types.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
